@@ -1,0 +1,60 @@
+:root {
+  font-family: Poppins, Helvetica, Arial, sans-serif;
+  color: rgb(68, 68, 68);
+}
+
+.container {
+  margin: 10px 50px;
+}
+.content {
+  display: flex;
+}
+
+.btn {
+  background: linear-gradient(135deg, #ff00ea, #8a2be2);
+  color: #fff;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 0 10px #ff00ea, 0 0 3px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #ff00ea, 0 0 10px #8a2be2;
+}
+
+/* ======================================== mobile ======================== */
+@media (max-width: 768px) {
+  .container {
+    margin: 20px 0px;
+  }
+  .content {
+    margin-top: -50px;
+    justify-content: center;
+    text-align: center;
+    display: block;
+  }
+
+  .btn {
+    background: linear-gradient(135deg, #ff00ea, #8a2be2);
+    color: #fff;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 0 10px #ff00ea, 0 0 3px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #ff00ea, 0 0 10px #8a2be2;
+  }
+}
