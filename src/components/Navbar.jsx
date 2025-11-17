@@ -1,13 +1,7 @@
 import React from "react";
 
-const Navbar = () => {
-  return (
-    <nav
-      style={{ padding: "1rem", backgroundColor: "#1976d2", color: "white" }}
-    >
-      <h2>Finance Dashboard</h2>
-    </nav>
-  );
-};
+function Navbar() {
+  return <div>Navbar</div>;
+}
 
 export default Navbar;
