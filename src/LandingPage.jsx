@@ -1,4 +1,4 @@
-import React from "react";
+import Footer from "./components/footer";
 import logo from "./assets/siakti-logo.png";
 import { useNavigate } from "react-router-dom";
 import imageHero2 from "./assets/titi.png";
@@ -10,41 +10,39 @@ const LandingPage = () => {
 
   return (
     <>
-      <div className="container">
-        <img src={logo} width="200" alt="Logo" />
-        <div className="content " style={{ paddingTop: 50 }}>
-          <div>
-            <h1>
-              Atur Keuanganmu Dengan Formula <span>50 30 20</span>
-            </h1>
+      <div className="background">
+        <div className="container">
+          <img src={logo} width="200" alt="Logo" />
 
-            <p className="pt-10 pb-10">
-              Alokasikan dana anda secara cerdas: 50% untuk kebutuhan, 30% untuk
-              keinginan, dan 20% untuk tabungan & investasi
-            </p>
-            <button
-              onClick={() => navigate("/dashboard")}
-              className="btn bg-linear-65 from-purple-500 to-pink-500"
-            >
-              Mulai Sekarang
-            </button>
+          <div className="content my-5 flex flex-col md:flex-row items-center gap-6">
+            <div className="text-white md:w-1/2">
+              <h1 className="text-3xl md:text-4xl mt-5 font-bold">
+                Atur Keuanganmu Dengan Formula <br /> 50 30 20
+              </h1>
+              <p className="pt-5 text-base md:text-lg">
+                Alokasikan dana anda secara cerdas: 50% untuk kebutuhan, 30%
+                untuk keinginan, dan 20% untuk tabungan & investasi
+              </p>
+              <button onClick={() => navigate("/login")} className="btn mt-10 ">
+                Mulai Sekarang
+              </button>
+            </div>
+            <img src={imageHero2} className="w-full md:w-1/2 pt-5" alt="Logo" />
           </div>
-          <img src={imageHero2} width="600" alt="Logo" />
-        </div>
-        <div className="content" style={{ marginTop: 50 }}>
-          <img src={imageHero} width="600" alt="Logo" />
-          <div>
-            <h1>
-              “Your Money. <br /> Your Control.”
-            </h1>
-            <p className="pt-5 ">
-              Dengan Siakti Smart Budget, setiap rupiah yang kamu hasilkan ada
-              di tanganmu. Pantau pemasukan, atur pengeluaran, dan prioritaskan
-              kebutuhan sesuai metode 50-30-20 dengan mudah. Kamu bukan hanya
-              mengelola uang—kamu mengendalikan masa depan finansialmu.
-              Sederhana, cerdas, dan penuh kendali.
-            </p>
+          <div className="content my-5 flex flex-col md:flex-row items-center gap-6">
+            <img src={imageHero} className="w-full md:w-1/2 pt-5" alt="Logo" />
+            <div className="text-white md:w-1/2">
+              <h1 className="text-3xl md:text-4xl font-bold">
+                “Your Money. <br /> Your Control.”
+              </h1>
+              <p className="pt-5 text-base md:text-lg">
+                Dengan Siakti Smart Budget, setiap rupiah yang kamu hasilkan ada
+                di tanganmu...
+              </p>
+            </div>
           </div>
+
+          <Footer />
         </div>
       </div>
     </>

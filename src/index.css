@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 :root {
+  scroll-behavior: smooth;
   font-family: Poppins, Helvetica, Arial, sans-serif;
   color: rgb(68, 68, 68);
   text-decoration: none;
@@ -8,10 +9,11 @@
   padding: 0px;
 }
 
-body {
+.background {
   background-image: url(https://images.unsplash.com/photo-1519608487953-e999c86e7455?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
   background-size: cover;
   background-repeat: no-repeat;
+  background-attachment: fixed;
   background-position: center;
 }
 .container {
@@ -32,15 +34,16 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.3);
   color: white;
 }
+
+.content img {
+  max-width: 100%;
+  height: auto;
+}
+
 .tagline {
   width: 50%;
   height: 25rem;
   align-content: center;
-}
-h1 {
-  font-size: 3rem;
-  font-weight: bold;
-  line-height: 4rem;
 }
 
 .btn {
@@ -53,6 +56,7 @@ h1 {
   font-weight: bold;
   box-shadow: 0 0 5px #ff00ea, 0 0 3px;
   transition: transform 0.2s, box-shadow 0.2s;
+  background: linear-gradient(65deg, #a855f7, #ec4899);
 }
 
 .btn:hover {
@@ -64,30 +68,5 @@ h1 {
 @media (max-width: 768px) {
   .container {
     margin: auto;
-  }
-
-  .content {
-    margin-top: -50px;
-    justify-content: center;
-    text-align: center;
-    display: block;
-  }
-
-  .btn {
-    background: linear-gradient(135deg, #ff00ea, #8a2be2);
-    color: #fff;
-    padding: 12px 30px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    box-shadow: 0 0 10px #ff00ea, 0 0 3px;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-
-  .btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 15px #ff00ea, 0 0 10px #8a2be2;
   }
 }
