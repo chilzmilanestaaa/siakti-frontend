@@ -1,17 +1,11 @@
-import React from "react";
-
-function footer() {
+function Footer() {
   return (
-    <>
-      <div
-        className="text-violet-50 
-display: flex justify-center"
-      >
-        <p>&copy;2025 | S1 Teknologi Informasi & Sistem Informasi</p>
-      </div>
-      ;
-    </>
+    <footer className=" text-violet-50 py-6 px-4 text-center">
+      <p className="text-sm md:text-base">
+        &copy; 2025 | S1 Teknologi Informasi & Sistem Informasi
+      </p>
+    </footer>
   );
 }
 
-export default footer;
+export default Footer;

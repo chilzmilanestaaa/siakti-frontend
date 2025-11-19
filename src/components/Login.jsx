@@ -13,7 +13,7 @@ export default function Login() {
     console.log("Email:", email);
     console.log("Password:", password);
     // Tambahkan logika autentikasi di sini
-    navigate("/dashboard");
+    navigate("/Dashboard");
   };
 
   return (

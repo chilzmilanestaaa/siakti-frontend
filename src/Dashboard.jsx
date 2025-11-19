@@ -1,76 +1,82 @@
+// MoneyManagementDashboard.jsx
 import React, { useState } from "react";
-import Navbar from "./components/Navbar";
-import IncomeExpenseForm from "./components/IncomeExpenseForm";
-import TransactionList from "./components/TransactionList";
-import FinanceChart from "./components/FinanceChart";
 
-const Dashboard = () => {
-  const [transactions, setTransactions] = useState([]);
-  const [selectedMonth, setSelectedMonth] = useState("all");
+import Sidebar from "./components/Sidebar";
+import Header from "./components/Header";
+import PieChartAllocation from "./components/PieChartAllocation";
+import BudgetProgressBar from "./components/BudgetProgressBar";
 
-  const addTransaction = (transaction) => {
-    setTransactions([transaction, ...transactions]);
+const MoneyManagementDashboard = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const budgetData = {
+    income: 12500000,
+    needs: { allocated: 6250000, used: 4850000, percentage: 78 },
+    wants: { allocated: 3750000, used: 2150000, percentage: 57 },
+    savings: { allocated: 2500000, used: 2500000, percentage: 100 },
   };
 
-  const filteredTransactions =
-    selectedMonth === "all"
-      ? transactions
-      : transactions.filter((t) => {
-          const month = new Date(t.date).getMonth() + 1;
-          return month === parseInt(selectedMonth);
-        });
-
-  const totalIncome = filteredTransactions
-    .filter((t) => t.type === "income")
-    .reduce((acc, t) => acc + t.amount, 0);
-
-  const totalExpense = filteredTransactions
-    .filter((t) => t.type === "expense")
-    .reduce((acc, t) => acc + t.amount, 0);
-
-  const balance = totalIncome - totalExpense;
-
   return (
-    <div>
-      <Navbar />
-      <div style={{ padding: "2rem" }}>
-        <IncomeExpenseForm addTransaction={addTransaction} />
+    <div className="flex h-screen bg-gray-50">
+      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-        <div style={{ marginBottom: "1rem" }}>
-          <label>Pilih Bulan: </label>
-          <select
-            value={selectedMonth}
-            onChange={(e) => setSelectedMonth(e.target.value)}
-          >
-            <option value="all">Semua</option>
-            <option value="1">Januari</option>
-            <option value="2">Februari</option>
-            <option value="3">Maret</option>
-            <option value="4">April</option>
-            <option value="5">Mei</option>
-            <option value="6">Juni</option>
-            <option value="7">Juli</option>
-            <option value="8">Agustus</option>
-            <option value="9">September</option>
-            <option value="10">Oktober</option>
-            <option value="11">November</option>
-            <option value="12">Desember</option>
-          </select>
-        </div>
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <Header onMenuToggle={() => setSidebarOpen(!sidebarOpen)} />
 
-        <div style={{ marginBottom: "1rem" }}>
-          <h3>Total Pemasukan: {totalIncome}</h3>
-          <h3>Total Pengeluaran: {totalExpense}</h3>
-          <h3 style={{ color: balance >= 0 ? "green" : "red" }}>
-            Saldo: {balance} {balance >= 0 ? "(Surplus)" : "(Defisit)"}
-          </h3>
-        </div>
+        <main className="flex-1 overflow-y-auto p-6">
+          <div className="max-w-7xl mx-auto">
+            {/* Income Section */}
+            <div className="bg-purple rounded-xl shadow-sm p-6 mb-6">
+              <h2 className="text-lg font-semibold text-gray-700 mb-2">
+                MONTHLY INCOME
+              </h2>
+              <p className="text-3xl font-bold text-gray-800">
+                Rp{budgetData.income.toLocaleString("id-ID")}
+              </p>
+            </div>
 
-        <TransactionList transactions={filteredTransactions} />
-        <FinanceChart transactions={filteredTransactions} />
+            {/* Pie Chart */}
+            <div className="bg-white rounded-xl shadow-sm p-6">
+              <h3 className="text-lg font-semibold text-gray-700 mb-4 text-center">
+                Budget Allocation Summary
+              </h3>
+              <PieChartAllocation needs={60} wants={30} savings={10} />
+            </div>
+
+            {/* Budget Bars */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+              <BudgetProgressBar
+                title="Needs (50%)"
+                percentage={budgetData.needs.percentage}
+                amount="Rp6.250.000"
+                used="Rp4.850.000"
+                color="blue"
+                type="needs"
+              />
+
+              <BudgetProgressBar
+                title="Wants (30%)"
+                percentage={budgetData.wants.percentage}
+                amount="Rp3.750.000"
+                used="Rp2.150.000"
+                color="purple"
+                type="wants"
+              />
+
+              <BudgetProgressBar
+                title="Savings (20%)"
+                percentage={budgetData.savings.percentage}
+                amount="Rp2.500.000"
+                used="Rp2.500.000"
+                color="green"
+                type="savings"
+              />
+            </div>
+          </div>
+        </main>
       </div>
     </div>
   );
 };
 
-export default Dashboard;
+export default MoneyManagementDashboard;

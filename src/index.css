@@ -1,4 +1,8 @@
 @import "tailwindcss";
+[class^="mgc_"]::before,
+[class*=" mgc_"]::before {
+  color: inherit !important;
+}
 
 :root {
   scroll-behavior: smooth;
@@ -7,6 +11,10 @@
   text-decoration: none;
   margin: 0px;
   padding: 0px;
+  --siakti-yellow: #fff691;
+  --siakti-red: #fa259f;
+  --siakti-green: #a4f7c1;
+  --siakti-blue: #05dfd7;
 }
 
 .background {
@@ -52,8 +60,8 @@
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
+  /* font-size: 16px; */
+  /* font-weight: bold; */
   box-shadow: 0 0 5px #ff00ea, 0 0 3px;
   transition: transform 0.2s, box-shadow 0.2s;
   background: linear-gradient(65deg, #a855f7, #ec4899);
