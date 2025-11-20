@@ -114,7 +114,8 @@ const MoneyManagementDashboard = () => {
             const label = context.label || "";
             const value = context.parsed || 0;
             const total = context.dataset.data.reduce((a, b) => a + b, 0);
-            const percentage = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
+            const percentage =
+              total > 0 ? ((value / total) * 100).toFixed(1) : 0;
             return `${label}: Rp ${value.toLocaleString(
               "id-ID"
             )} (${percentage}%)`;
@@ -159,9 +160,9 @@ const MoneyManagementDashboard = () => {
       tooltip: {
         callbacks: {
           label: function (context) {
-            return `${context.dataset.label}: Rp ${context.parsed.y.toLocaleString(
-              "id-ID"
-            )}`;
+            return `${
+              context.dataset.label
+            }: Rp ${context.parsed.y.toLocaleString("id-ID")}`;
           },
         },
       },
@@ -229,9 +230,7 @@ const MoneyManagementDashboard = () => {
                 <p className="text-2xl md:text-3xl font-bold text-gray-800 mb-1">
                   Rp {remaining.toLocaleString("id-ID")}
                 </p>
-                <p className="text-xs text-gray-500">
-                  Pemasukan - Pengeluaran
-                </p>
+                <p className="text-xs text-gray-500">Pemasukan - Pengeluaran</p>
               </div>
 
               <div className="bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl shadow-lg p-5 text-white flex flex-col justify-between transition-transform duration-300 hover:-translate-y-1 hover:shadow-2xl">
@@ -281,9 +280,8 @@ const MoneyManagementDashboard = () => {
                         </span>
                       </div>
                       <span className="text-sm font-semibold text-gray-800">
-                        Rp {(monthlySummary.income * 0.5).toLocaleString(
-                          "id-ID"
-                        )}
+                        Rp{" "}
+                        {(monthlySummary.income * 0.5).toLocaleString("id-ID")}
                       </span>
                     </div>
                     <div className="flex items-center justify-between">
@@ -294,9 +292,8 @@ const MoneyManagementDashboard = () => {
                         </span>
                       </div>
                       <span className="text-sm font-semibold text-gray-800">
-                        Rp {(monthlySummary.income * 0.3).toLocaleString(
-                          "id-ID"
-                        )}
+                        Rp{" "}
+                        {(monthlySummary.income * 0.3).toLocaleString("id-ID")}
                       </span>
                     </div>
                     <div className="flex items-center justify-between">
@@ -307,9 +304,8 @@ const MoneyManagementDashboard = () => {
                         </span>
                       </div>
                       <span className="text-sm font-semibold text-gray-800">
-                        Rp {(monthlySummary.income * 0.2).toLocaleString(
-                          "id-ID"
-                        )}
+                        Rp{" "}
+                        {(monthlySummary.income * 0.2).toLocaleString("id-ID")}
                       </span>
                     </div>
                   </div>

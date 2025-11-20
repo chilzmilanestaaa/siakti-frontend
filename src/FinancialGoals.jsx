@@ -4,11 +4,36 @@ import Header from "./components/Header";
 import "mingcute_icon/font/Mingcute.css";
 
 const GOAL_TEMPLATES = [
-  { title: "Tabungan Darurat", target: 10000000, icon: "mgc_safe_2_line", color: "#3B82F6" },
-  { title: "Dana Liburan", target: 5000000, icon: "mgc_flight_takeoff_line", color: "#10B981" },
-  { title: "Beli Gadget", target: 8000000, icon: "mgc_phone_line", color: "#8B5CF6" },
-  { title: "Lunasi Utang", target: 15000000, icon: "mgc_file_pay_line", color: "#EF4444" },
-  { title: "Dana Pendidikan", target: 20000000, icon: "mgc_book_2_line", color: "#F59E0B" },
+  {
+    title: "Tabungan Darurat",
+    target: 10000000,
+    icon: "mgc_file_warning_line",
+    color: "#3B82F6",
+  },
+  {
+    title: "Dana Liburan",
+    target: 5000000,
+    icon: "mgc_flight_takeoff_line",
+    color: "#10B981",
+  },
+  {
+    title: "Beli Gadget",
+    target: 8000000,
+    icon: "mgc_cellphone_line",
+    color: "#8B5CF6",
+  },
+  {
+    title: "Lunasi Utang",
+    target: 15000000,
+    icon: "mgc_alert_line",
+    color: "#EF4444",
+  },
+  {
+    title: "Dana Pendidikan",
+    target: 20000000,
+    icon: "mgc_book_2_line",
+    color: "#F59E0B",
+  },
 ];
 
 export default function FinancialGoals() {
@@ -44,10 +69,19 @@ export default function FinancialGoals() {
 
     goals.forEach((goal) => {
       const deadline = new Date(goal.deadline);
-      const daysUntilDeadline = Math.ceil((deadline - now) / (1000 * 60 * 60 * 24));
+      const daysUntilDeadline = Math.ceil(
+        (deadline - now) / (1000 * 60 * 60 * 24)
+      );
       const progress = (goal.currentAmount / goal.target) * 100;
-      const daysSinceCreated = Math.ceil((now - new Date(goal.createdAt)) / (1000 * 60 * 60 * 24));
-      const expectedProgress = (daysSinceCreated / Math.ceil((deadline - new Date(goal.createdAt)) / (1000 * 60 * 60 * 24))) * 100;
+      const daysSinceCreated = Math.ceil(
+        (now - new Date(goal.createdAt)) / (1000 * 60 * 60 * 24)
+      );
+      const expectedProgress =
+        (daysSinceCreated /
+          Math.ceil(
+            (deadline - new Date(goal.createdAt)) / (1000 * 60 * 60 * 24)
+          )) *
+        100;
 
       // Reminder: Mendekati deadline (kurang dari 30 hari)
       if (daysUntilDeadline > 0 && daysUntilDeadline <= 30) {
@@ -88,11 +122,18 @@ export default function FinancialGoals() {
 
     goals.forEach((goal) => {
       const deadline = new Date(goal.deadline);
-      const daysUntilDeadline = Math.ceil((deadline - now) / (1000 * 60 * 60 * 24));
+      const daysUntilDeadline = Math.ceil(
+        (deadline - now) / (1000 * 60 * 60 * 24)
+      );
       const progress = (goal.currentAmount / goal.target) * 100;
-      const daysSinceCreated = Math.ceil((now - new Date(goal.createdAt)) / (1000 * 60 * 60 * 24));
-      const totalDays = Math.ceil((deadline - new Date(goal.createdAt)) / (1000 * 60 * 60 * 24));
-      const expectedProgress = totalDays > 0 ? (daysSinceCreated / totalDays) * 100 : 0;
+      const daysSinceCreated = Math.ceil(
+        (now - new Date(goal.createdAt)) / (1000 * 60 * 60 * 24)
+      );
+      const totalDays = Math.ceil(
+        (deadline - new Date(goal.createdAt)) / (1000 * 60 * 60 * 24)
+      );
+      const expectedProgress =
+        totalDays > 0 ? (daysSinceCreated / totalDays) * 100 : 0;
 
       if (daysUntilDeadline > 0 && daysUntilDeadline <= 30) {
         reminders.push({
@@ -134,7 +175,10 @@ export default function FinancialGoals() {
       Math.ceil((deadlineDate - now) / (1000 * 60 * 60 * 24 * 30))
     );
     const monthlySavings = (monthlyIncome * savingsPercentage) / 100;
-    const monthlyContribution = Math.min(target / monthsUntilDeadline, monthlySavings);
+    const monthlyContribution = Math.min(
+      target / monthsUntilDeadline,
+      monthlySavings
+    );
     return Math.floor(monthlyContribution);
   };
 
@@ -147,7 +191,11 @@ export default function FinancialGoals() {
       };
 
       // Auto calculate monthly contribution if auto allocation is enabled
-      if (name === "target" || name === "deadline" || name === "autoAllocation") {
+      if (
+        name === "target" ||
+        name === "deadline" ||
+        name === "autoAllocation"
+      ) {
         if (newData.autoAllocation && newData.target && newData.deadline) {
           newData.monthlyContribution = calculateAutoAllocation(
             parseFloat(newData.target) || 0,
@@ -170,7 +218,10 @@ export default function FinancialGoals() {
       deadline: deadline.toISOString().split("T")[0],
       currentAmount: "0",
       autoAllocation: true,
-      monthlyContribution: calculateAutoAllocation(template.target, deadline.toISOString().split("T")[0]).toString(),
+      monthlyContribution: calculateAutoAllocation(
+        template.target,
+        deadline.toISOString().split("T")[0]
+      ).toString(),
     });
     setShowForm(true);
   };
@@ -196,7 +247,11 @@ export default function FinancialGoals() {
       createdAt: new Date().toISOString(),
     };
 
-    setGoals((prev) => [...prev, newGoal].sort((a, b) => new Date(a.deadline) - new Date(b.deadline)));
+    setGoals((prev) =>
+      [...prev, newGoal].sort(
+        (a, b) => new Date(a.deadline) - new Date(b.deadline)
+      )
+    );
 
     // Reset form
     setFormData({
@@ -222,7 +277,13 @@ export default function FinancialGoals() {
     setGoals((prev) =>
       prev.map((goal) =>
         goal.id === goalId
-          ? { ...goal, currentAmount: Math.min(goal.currentAmount + amountNum, goal.target) }
+          ? {
+              ...goal,
+              currentAmount: Math.min(
+                goal.currentAmount + amountNum,
+                goal.target
+              ),
+            }
           : goal
       )
     );
@@ -245,7 +306,10 @@ export default function FinancialGoals() {
   });
 
   const totalTarget = activeGoals.reduce((sum, goal) => sum + goal.target, 0);
-  const totalCurrent = activeGoals.reduce((sum, goal) => sum + goal.currentAmount, 0);
+  const totalCurrent = activeGoals.reduce(
+    (sum, goal) => sum + goal.currentAmount,
+    0
+  );
 
   return (
     <div className="flex h-screen bg-gradient-to-br from-gray-50 to-gray-100">
@@ -258,9 +322,12 @@ export default function FinancialGoals() {
           <div className="max-w-7xl mx-auto">
             {/* Header Section */}
             <div className="mb-8">
-              <h1 className="text-4xl font-bold text-gray-800 mb-2">Financial Goals</h1>
+              <h1 className="text-4xl font-bold text-gray-800 mb-2">
+                Financial Goals
+              </h1>
               <p className="text-gray-600">
-                Buat target finansial jangka pendek & panjang untuk tetap konsisten menabung
+                Buat target finansial jangka pendek & panjang untuk tetap
+                konsisten menabung
               </p>
             </div>
 
@@ -271,13 +338,17 @@ export default function FinancialGoals() {
                   <div className="flex items-start">
                     <span className="mgc_notification_line text-2xl text-yellow-600 mr-3"></span>
                     <div className="flex-1">
-                      <h3 className="font-semibold text-yellow-800 mb-2">Reminder</h3>
+                      <h3 className="font-semibold text-yellow-800 mb-2">
+                        Reminder
+                      </h3>
                       <div className="space-y-1">
                         {reminders.map((reminder, idx) => (
                           <p
                             key={idx}
                             className={`text-sm ${
-                              reminder.severity === "high" ? "text-red-700" : "text-yellow-700"
+                              reminder.severity === "high"
+                                ? "text-red-700"
+                                : "text-yellow-700"
                             }`}
                           >
                             • {reminder.message}
@@ -330,7 +401,9 @@ export default function FinancialGoals() {
                           style={{ color: template.color }}
                         ></span>
                       </div>
-                      <h4 className="font-semibold text-gray-800 mb-1">{template.title}</h4>
+                      <h4 className="font-semibold text-gray-800 mb-1">
+                        {template.title}
+                      </h4>
                       <p className="text-sm text-gray-600">
                         Rp {template.target.toLocaleString("id-ID")}
                       </p>
@@ -442,27 +515,35 @@ export default function FinancialGoals() {
                           Auto Allocation dari 20% Tabungan
                         </label>
                         <p className="text-xs text-gray-600 mt-1 ml-6">
-                          Otomatis menghitung kontribusi bulanan dari 20% alokasi tabungan
+                          Otomatis menghitung kontribusi bulanan dari 20%
+                          alokasi tabungan
                         </p>
                       </div>
                     </div>
-                    {formData.autoAllocation && formData.target && formData.deadline && (
-                      <div className="ml-6 p-3 bg-white rounded-lg">
-                        <p className="text-sm text-gray-700">
-                          <span className="font-semibold">Kontribusi Bulanan:</span>{" "}
-                          <span className="text-purple-600 font-bold">
-                            Rp {formData.monthlyContribution.toLocaleString("id-ID")}
-                          </span>
-                        </p>
-                      </div>
-                    )}
+                    {formData.autoAllocation &&
+                      formData.target &&
+                      formData.deadline && (
+                        <div className="ml-6 p-3 bg-white rounded-lg">
+                          <p className="text-sm text-gray-700">
+                            <span className="font-semibold">
+                              Kontribusi Bulanan:
+                            </span>{" "}
+                            <span className="text-purple-600 font-bold">
+                              Rp{" "}
+                              {formData.monthlyContribution.toLocaleString(
+                                "id-ID"
+                              )}
+                            </span>
+                          </p>
+                        </div>
+                      )}
                   </div>
 
                   {/* Submit Button */}
                   <div className="flex gap-3">
                     <button
                       type="submit"
-                      className="flex-1 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all transform hover:scale-105 shadow-lg"
+                      className="flex-1 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all transform hover:scale-101 shadow-lg"
                     >
                       <span className="mgc_save_2_line text-xl mr-2"></span>
                       Simpan Goal
@@ -493,7 +574,9 @@ export default function FinancialGoals() {
             <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl shadow-lg p-6 mb-6 text-white">
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="text-lg font-semibold mb-1">Total Target Goals</h3>
+                  <h3 className="text-lg font-semibold mb-1">
+                    Total Target Goals
+                  </h3>
                   <p className="text-3xl font-bold">
                     Rp {totalTarget.toLocaleString("id-ID")}
                   </p>
@@ -523,7 +606,9 @@ export default function FinancialGoals() {
                     const progress = (goal.currentAmount / goal.target) * 100;
                     const deadline = new Date(goal.deadline);
                     const now = new Date();
-                    const daysLeft = Math.ceil((deadline - now) / (1000 * 60 * 60 * 24));
+                    const daysLeft = Math.ceil(
+                      (deadline - now) / (1000 * 60 * 60 * 24)
+                    );
                     const remaining = goal.target - goal.currentAmount;
 
                     return (
@@ -537,7 +622,8 @@ export default function FinancialGoals() {
                               {goal.title}
                             </h4>
                             <p className="text-sm text-gray-500">
-                              Deadline: {deadline.toLocaleDateString("id-ID", {
+                              Deadline:{" "}
+                              {deadline.toLocaleDateString("id-ID", {
                                 day: "numeric",
                                 month: "long",
                                 year: "numeric",
@@ -556,7 +642,9 @@ export default function FinancialGoals() {
                         {/* Progress Bar */}
                         <div className="mb-4">
                           <div className="flex items-center justify-between mb-2">
-                            <span className="text-sm font-medium text-gray-600">Progress</span>
+                            <span className="text-sm font-medium text-gray-600">
+                              Progress
+                            </span>
                             <span className="text-sm font-bold text-purple-600">
                               {progress.toFixed(1)}%
                             </span>
@@ -568,8 +656,12 @@ export default function FinancialGoals() {
                             ></div>
                           </div>
                           <div className="flex justify-between mt-2 text-xs text-gray-500">
-                            <span>Rp {goal.currentAmount.toLocaleString("id-ID")}</span>
-                            <span>Rp {goal.target.toLocaleString("id-ID")}</span>
+                            <span>
+                              Rp {goal.currentAmount.toLocaleString("id-ID")}
+                            </span>
+                            <span>
+                              Rp {goal.target.toLocaleString("id-ID")}
+                            </span>
                           </div>
                         </div>
 
@@ -585,20 +677,28 @@ export default function FinancialGoals() {
                             <span className="text-gray-600">Hari Tersisa:</span>
                             <span
                               className={`font-semibold ${
-                                daysLeft <= 30 ? "text-red-600" : "text-gray-800"
+                                daysLeft <= 30
+                                  ? "text-red-600"
+                                  : "text-gray-800"
                               }`}
                             >
                               {daysLeft > 0 ? `${daysLeft} hari` : "Terlambat"}
                             </span>
                           </div>
-                          {goal.autoAllocation && goal.monthlyContribution > 0 && (
-                            <div className="flex items-center justify-between">
-                              <span className="text-gray-600">Kontribusi Bulanan:</span>
-                              <span className="font-semibold text-purple-600">
-                                Rp {goal.monthlyContribution.toLocaleString("id-ID")}
-                              </span>
-                            </div>
-                          )}
+                          {goal.autoAllocation &&
+                            goal.monthlyContribution > 0 && (
+                              <div className="flex items-center justify-between">
+                                <span className="text-gray-600">
+                                  Kontribusi Bulanan:
+                                </span>
+                                <span className="font-semibold text-purple-600">
+                                  Rp{" "}
+                                  {goal.monthlyContribution.toLocaleString(
+                                    "id-ID"
+                                  )}
+                                </span>
+                              </div>
+                            )}
                         </div>
 
                         {/* Add Contribution */}
@@ -612,7 +712,10 @@ export default function FinancialGoals() {
                               className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-purple-500 focus:outline-none"
                               onKeyPress={(e) => {
                                 if (e.key === "Enter") {
-                                  handleAddContribution(goal.id, e.target.value);
+                                  handleAddContribution(
+                                    goal.id,
+                                    e.target.value
+                                  );
                                   e.target.value = "";
                                 }
                               }}
@@ -657,10 +760,13 @@ export default function FinancialGoals() {
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-2">
                               <span className="mgc_check_circle_fill text-green-600 text-xl"></span>
-                              <h4 className="text-xl font-bold text-gray-800">{goal.title}</h4>
+                              <h4 className="text-xl font-bold text-gray-800">
+                                {goal.title}
+                              </h4>
                             </div>
                             <p className="text-sm text-gray-500">
-                              Selesai: {deadline.toLocaleDateString("id-ID", {
+                              Selesai:{" "}
+                              {deadline.toLocaleDateString("id-ID", {
                                 day: "numeric",
                                 month: "long",
                                 year: "numeric",
@@ -678,7 +784,9 @@ export default function FinancialGoals() {
 
                         <div className="bg-white rounded-lg p-3">
                           <div className="flex justify-between items-center">
-                            <span className="text-sm text-gray-600">Target:</span>
+                            <span className="text-sm text-gray-600">
+                              Target:
+                            </span>
                             <span className="font-bold text-green-600">
                               Rp {goal.target.toLocaleString("id-ID")}
                             </span>
@@ -713,4 +821,3 @@ export default function FinancialGoals() {
     </div>
   );
 }
-

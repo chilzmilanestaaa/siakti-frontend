@@ -1,6 +1,7 @@
 // Sidebar.jsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import logo from "../assets/siakti-logo.png";
 import "mingcute_icon/font/Mingcute.css";
 
 const Sidebar = ({ isOpen, onClose }) => {
@@ -53,7 +54,7 @@ const Sidebar = ({ isOpen, onClose }) => {
     <>
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          className="fixed inset-0 bg-purple bg-opacity-50 z-40 lg:hidden"
           onClick={onClose}
         ></div>
       )}
@@ -65,17 +66,13 @@ const Sidebar = ({ isOpen, onClose }) => {
           ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
         `}
       >
-        <div className="p-6 border-b border-gray-200">
+        <div className="p-6 ">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-lg">AK</span>
-            </div>
-            <div>
-              <h2 className="text-lg font-semibold text-gray-800">
-                Algi Kairi
-              </h2>
-              <p className="text-sm text-gray-500">Budget Planner</p>
-            </div>
+            <img
+              src={logo}
+              alt="Logo"
+              style={{ width: "150px", height: "auto" }}
+            />
           </div>
         </div>
 

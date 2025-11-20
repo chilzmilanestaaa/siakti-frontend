@@ -29,9 +29,27 @@ ChartJS.register(
 );
 
 const EXPENSE_CATEGORIES = [
-  { value: "needs", label: "Kebutuhan", icon: "mgc_home_2_line", color: "#3B82F6", subCategories: ["makan", "sewa", "transport", "listrik", "internet"] },
-  { value: "wants", label: "Keinginan", icon: "mgc_shopping_bag_2_line", color: "#10B981", subCategories: ["hobi", "nongkrong", "belanja", "entertainment"] },
-  { value: "savings", label: "Tabungan", icon: "mgc_coin_line", color: "#F59E0B", subCategories: ["darurat", "investasi", "danaPendidikan"] },
+  {
+    value: "needs",
+    label: "Kebutuhan",
+    icon: "mgc_home_2_line",
+    color: "#3B82F6",
+    subCategories: ["makan", "sewa", "transport", "listrik", "internet"],
+  },
+  {
+    value: "wants",
+    label: "Keinginan",
+    icon: "mgc_shopping_bag_2_line",
+    color: "#10B981",
+    subCategories: ["hobi", "nongkrong", "belanja", "entertainment"],
+  },
+  {
+    value: "savings",
+    label: "Tabungan",
+    icon: "mgc_coin_line",
+    color: "#F59E0B",
+    subCategories: ["darurat", "investasi", "danaPendidikan"],
+  },
 ];
 
 const PAYMENT_METHODS = [
@@ -96,15 +114,20 @@ export default function ExpenseTracking() {
   // Filtered expenses
   const filteredExpenses = useMemo(() => {
     return expenses.filter((expense) => {
-      const categoryMatch = filters.category === "all" || expense.category === filters.category;
-      const paymentMatch = filters.paymentMethod === "all" || expense.paymentMethod === filters.paymentMethod;
-      
+      const categoryMatch =
+        filters.category === "all" || expense.category === filters.category;
+      const paymentMatch =
+        filters.paymentMethod === "all" ||
+        expense.paymentMethod === filters.paymentMethod;
+
       let dateMatch = true;
       if (filters.dateFrom) {
-        dateMatch = dateMatch && new Date(expense.date) >= new Date(filters.dateFrom);
+        dateMatch =
+          dateMatch && new Date(expense.date) >= new Date(filters.dateFrom);
       }
       if (filters.dateTo) {
-        dateMatch = dateMatch && new Date(expense.date) <= new Date(filters.dateTo);
+        dateMatch =
+          dateMatch && new Date(expense.date) <= new Date(filters.dateTo);
       }
 
       return categoryMatch && paymentMatch && dateMatch;
@@ -146,14 +169,20 @@ export default function ExpenseTracking() {
     filteredExpenses.forEach((expense) => {
       const date = new Date(expense.date);
       let key;
-      
+
       if (trendView === "daily") {
-        key = date.toLocaleDateString("id-ID", { day: "numeric", month: "short" });
+        key = date.toLocaleDateString("id-ID", {
+          day: "numeric",
+          month: "short",
+        });
       } else {
         // Weekly: Get week number
         const weekStart = new Date(date);
         weekStart.setDate(date.getDate() - date.getDay());
-        key = `Minggu ${weekStart.toLocaleDateString("id-ID", { day: "numeric", month: "short" })}`;
+        key = `Minggu ${weekStart.toLocaleDateString("id-ID", {
+          day: "numeric",
+          month: "short",
+        })}`;
       }
 
       if (!dataMap[key]) {
@@ -226,8 +255,11 @@ export default function ExpenseTracking() {
             const label = context.label || "";
             const value = context.parsed || 0;
             const total = context.dataset.data.reduce((a, b) => a + b, 0);
-            const percentage = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
-            return `${label}: Rp ${value.toLocaleString("id-ID")} (${percentage}%)`;
+            const percentage =
+              total > 0 ? ((value / total) * 100).toFixed(1) : 0;
+            return `${label}: Rp ${value.toLocaleString(
+              "id-ID"
+            )} (${percentage}%)`;
           },
         },
       },
@@ -249,7 +281,12 @@ export default function ExpenseTracking() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!formData.category || !formData.amount || !formData.date || !formData.paymentMethod) {
+    if (
+      !formData.category ||
+      !formData.amount ||
+      !formData.date ||
+      !formData.paymentMethod
+    ) {
       alert("Harap isi semua field yang wajib!");
       return;
     }
@@ -289,8 +326,13 @@ export default function ExpenseTracking() {
     }
   };
 
-  const totalExpenses = filteredExpenses.reduce((sum, expense) => sum + (expense.amount || 0), 0);
-  const categoryInfo = EXPENSE_CATEGORIES.find((cat) => cat.value === formData.category);
+  const totalExpenses = filteredExpenses.reduce(
+    (sum, expense) => sum + (expense.amount || 0),
+    0
+  );
+  const categoryInfo = EXPENSE_CATEGORIES.find(
+    (cat) => cat.value === formData.category
+  );
 
   return (
     <div className="flex h-screen bg-gradient-to-br from-gray-50 to-gray-100">
@@ -400,7 +442,8 @@ export default function ExpenseTracking() {
                     {/* Metode Pembayaran */}
                     <div>
                       <label className="block text-sm font-semibold text-gray-700 mb-2">
-                        Metode Pembayaran <span className="text-red-500">*</span>
+                        Metode Pembayaran{" "}
+                        <span className="text-red-500">*</span>
                       </label>
                       <select
                         name="paymentMethod"
@@ -453,7 +496,7 @@ export default function ExpenseTracking() {
                   <div className="flex gap-3">
                     <button
                       type="submit"
-                      className="flex-1 px-6 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white font-semibold rounded-xl hover:from-red-700 hover:to-pink-700 transition-all transform hover:scale-105 shadow-lg"
+                      className="flex-1 px-6 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white font-semibold rounded-xl hover:from-red-700 hover:to-pink-700 transition-all transform hover:scale-101 shadow-lg"
                     >
                       <span className="mgc_save_2_line text-xl mr-2"></span>
                       Simpan Pengeluaran
@@ -485,7 +528,9 @@ export default function ExpenseTracking() {
               <div className="bg-gradient-to-r from-red-500 to-pink-500 rounded-xl shadow-lg p-6 text-white">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="text-sm font-semibold mb-1 opacity-90">Total Pengeluaran</h3>
+                    <h3 className="text-sm font-semibold mb-1 opacity-90">
+                      Total Pengeluaran
+                    </h3>
                     <p className="text-2xl font-bold">
                       Rp {totalExpenses.toLocaleString("id-ID")}
                     </p>
@@ -502,12 +547,20 @@ export default function ExpenseTracking() {
                 >
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="text-sm font-semibold text-gray-600 mb-1">{cat.label}</h3>
-                      <p className="text-xl font-bold" style={{ color: cat.color }}>
+                      <h3 className="text-sm font-semibold text-gray-600 mb-1">
+                        {cat.label}
+                      </h3>
+                      <p
+                        className="text-xl font-bold"
+                        style={{ color: cat.color }}
+                      >
                         Rp {categoryTotals[cat.value].toLocaleString("id-ID")}
                       </p>
                     </div>
-                    <span className={`${cat.icon} text-3xl`} style={{ color: cat.color + "40" }}></span>
+                    <span
+                      className={`${cat.icon} text-3xl`}
+                      style={{ color: cat.color + "40" }}
+                    ></span>
                   </div>
                 </div>
               ))}
@@ -527,7 +580,10 @@ export default function ExpenseTracking() {
                   <select
                     value={filters.category}
                     onChange={(e) =>
-                      setFilters((prev) => ({ ...prev, category: e.target.value }))
+                      setFilters((prev) => ({
+                        ...prev,
+                        category: e.target.value,
+                      }))
                     }
                     className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none"
                   >
@@ -547,7 +603,10 @@ export default function ExpenseTracking() {
                   <select
                     value={filters.paymentMethod}
                     onChange={(e) =>
-                      setFilters((prev) => ({ ...prev, paymentMethod: e.target.value }))
+                      setFilters((prev) => ({
+                        ...prev,
+                        paymentMethod: e.target.value,
+                      }))
                     }
                     className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none"
                   >
@@ -568,7 +627,10 @@ export default function ExpenseTracking() {
                     type="date"
                     value={filters.dateFrom}
                     onChange={(e) =>
-                      setFilters((prev) => ({ ...prev, dateFrom: e.target.value }))
+                      setFilters((prev) => ({
+                        ...prev,
+                        dateFrom: e.target.value,
+                      }))
                     }
                     className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none"
                   />
@@ -582,7 +644,10 @@ export default function ExpenseTracking() {
                     type="date"
                     value={filters.dateTo}
                     onChange={(e) =>
-                      setFilters((prev) => ({ ...prev, dateTo: e.target.value }))
+                      setFilters((prev) => ({
+                        ...prev,
+                        dateTo: e.target.value,
+                      }))
                     }
                     className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none"
                   />
@@ -655,7 +720,8 @@ export default function ExpenseTracking() {
                   <span className="mgc_inbox_line text-6xl text-gray-300 block mb-4"></span>
                   <p className="text-gray-500 text-lg">Belum ada pengeluaran</p>
                   <p className="text-gray-400 text-sm mt-2">
-                    Klik "Tambah Pengeluaran" untuk menambahkan transaksi pertama
+                    Klik "Tambah Pengeluaran" untuk menambahkan transaksi
+                    pertama
                   </p>
                 </div>
               ) : (
@@ -685,14 +751,18 @@ export default function ExpenseTracking() {
                               className="p-2 rounded-lg text-white"
                               style={{ backgroundColor: categoryInfo?.color }}
                             >
-                              <span className={`${categoryInfo?.icon} text-xl`}></span>
+                              <span
+                                className={`${categoryInfo?.icon} text-xl`}
+                              ></span>
                             </div>
                             <div>
                               <h4 className="font-semibold text-gray-800">
                                 {categoryInfo?.label}
                               </h4>
                               {subCategoryInfo && (
-                                <p className="text-xs text-gray-500">{subCategoryInfo.label}</p>
+                                <p className="text-xs text-gray-500">
+                                  {subCategoryInfo.label}
+                                </p>
                               )}
                             </div>
                           </div>
@@ -719,11 +789,14 @@ export default function ExpenseTracking() {
                           <div className="flex items-center gap-2 text-gray-600">
                             <span className="mgc_calendar_line"></span>
                             <span>
-                              {new Date(expense.date).toLocaleDateString("id-ID", {
-                                day: "numeric",
-                                month: "long",
-                                year: "numeric",
-                              })}
+                              {new Date(expense.date).toLocaleDateString(
+                                "id-ID",
+                                {
+                                  day: "numeric",
+                                  month: "long",
+                                  year: "numeric",
+                                }
+                              )}
                             </span>
                           </div>
                           {expense.notes && (
@@ -744,4 +817,3 @@ export default function ExpenseTracking() {
     </div>
   );
 }
-

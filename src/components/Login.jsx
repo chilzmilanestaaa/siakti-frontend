@@ -60,9 +60,12 @@ export default function Login() {
 
           <p className="text-sm text-center text-gray-600 mt-4">
             Belum punya akun?{" "}
-            <a href="#" className="text-blue-600 hover:underline">
+            <button
+              onClick={() => navigate("/Register")}
+              className="text-blue-600 hover:underline"
+            >
               Daftar
-            </a>
+            </button>
           </p>
         </div>
       </div>

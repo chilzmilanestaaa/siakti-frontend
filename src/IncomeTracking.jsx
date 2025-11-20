@@ -40,7 +40,7 @@ export default function IncomeTracking() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [incomes, setIncomes] = useState([]);
   const [showForm, setShowForm] = useState(false);
-  
+
   // Form state
   const [formData, setFormData] = useState({
     source: "",
@@ -85,7 +85,8 @@ export default function IncomeTracking() {
 
       const monthMatch = filters.month === "all" || month === filters.month;
       const yearMatch = filters.year === "all" || year === filters.year;
-      const typeMatch = filters.type === "all" || income.source === filters.type;
+      const typeMatch =
+        filters.type === "all" || income.source === filters.type;
 
       return monthMatch && yearMatch && typeMatch;
     });
@@ -94,12 +95,17 @@ export default function IncomeTracking() {
   // Calculate monthly income for chart
   const monthlyIncomeData = useMemo(() => {
     const monthlyData = {};
-    
+
     filteredIncomes.forEach((income) => {
       const date = new Date(income.date);
-      const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
-      const monthLabel = date.toLocaleDateString("id-ID", { month: "short", year: "numeric" });
-      
+      const monthKey = `${date.getFullYear()}-${String(
+        date.getMonth() + 1
+      ).padStart(2, "0")}`;
+      const monthLabel = date.toLocaleDateString("id-ID", {
+        month: "short",
+        year: "numeric",
+      });
+
       if (!monthlyData[monthKey]) {
         monthlyData[monthKey] = { label: monthLabel, total: 0 };
       }
@@ -182,7 +188,7 @@ export default function IncomeTracking() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     if (!formData.source || !formData.amount || !formData.date) {
       alert("Harap isi semua field yang wajib!");
       return;
@@ -198,8 +204,10 @@ export default function IncomeTracking() {
       createdAt: new Date().toISOString(),
     };
 
-    setIncomes((prev) => [...prev, newIncome].sort((a, b) => new Date(b.date) - new Date(a.date)));
-    
+    setIncomes((prev) =>
+      [...prev, newIncome].sort((a, b) => new Date(b.date) - new Date(a.date))
+    );
+
     // Reset form
     setFormData({
       source: "",
@@ -208,7 +216,7 @@ export default function IncomeTracking() {
       notes: "",
       proof: null,
     });
-    
+
     setShowForm(false);
     alert("Pemasukan berhasil ditambahkan!");
   };
@@ -219,7 +227,10 @@ export default function IncomeTracking() {
     }
   };
 
-  const totalIncome = filteredIncomes.reduce((sum, income) => sum + (income.amount || 0), 0);
+  const totalIncome = filteredIncomes.reduce(
+    (sum, income) => sum + (income.amount || 0),
+    0
+  );
   const [chartType, setChartType] = useState("line");
 
   return (
@@ -264,7 +275,8 @@ export default function IncomeTracking() {
                     {/* Sumber Pendapatan */}
                     <div>
                       <label className="block text-sm font-semibold text-gray-700 mb-2">
-                        Sumber Pendapatan <span className="text-red-500">*</span>
+                        Sumber Pendapatan{" "}
+                        <span className="text-red-500">*</span>
                       </label>
                       <select
                         name="source"
@@ -359,7 +371,7 @@ export default function IncomeTracking() {
                   <div className="flex gap-3">
                     <button
                       type="submit"
-                      className="flex-1 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all transform hover:scale-105 shadow-lg"
+                      className="flex-1 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all transform hover:scale-101 shadow-lg"
                     >
                       <span className="mgc_save_2_line text-xl mr-2"></span>
                       Simpan Pemasukan
@@ -389,7 +401,9 @@ export default function IncomeTracking() {
             <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl shadow-lg p-6 mb-6 text-white">
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="text-lg font-semibold mb-1">Total Pemasukan</h3>
+                  <h3 className="text-lg font-semibold mb-1">
+                    Total Pemasukan
+                  </h3>
                   <p className="text-3xl font-bold">
                     Rp {totalIncome.toLocaleString("id-ID")}
                   </p>
@@ -419,19 +433,27 @@ export default function IncomeTracking() {
                     onChange={(e) =>
                       setFilters((prev) => ({
                         ...prev,
-                        month: e.target.value === "all" ? "all" : parseInt(e.target.value),
+                        month:
+                          e.target.value === "all"
+                            ? "all"
+                            : parseInt(e.target.value),
                       }))
                     }
                     className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 focus:outline-none"
                   >
                     <option value="all">Semua Bulan</option>
-                    {Array.from({ length: 12 }, (_, i) => i + 1).map((month) => (
-                      <option key={month} value={month}>
-                        {new Date(2024, month - 1).toLocaleDateString("id-ID", {
-                          month: "long",
-                        })}
-                      </option>
-                    ))}
+                    {Array.from({ length: 12 }, (_, i) => i + 1).map(
+                      (month) => (
+                        <option key={month} value={month}>
+                          {new Date(2024, month - 1).toLocaleDateString(
+                            "id-ID",
+                            {
+                              month: "long",
+                            }
+                          )}
+                        </option>
+                      )
+                    )}
                   </select>
                 </div>
 
@@ -444,7 +466,10 @@ export default function IncomeTracking() {
                     onChange={(e) =>
                       setFilters((prev) => ({
                         ...prev,
-                        year: e.target.value === "all" ? "all" : parseInt(e.target.value),
+                        year:
+                          e.target.value === "all"
+                            ? "all"
+                            : parseInt(e.target.value),
                       }))
                     }
                     className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 focus:outline-none"
@@ -577,11 +602,14 @@ export default function IncomeTracking() {
                             className="border-b border-gray-100 hover:bg-gray-50 transition-colors"
                           >
                             <td className="py-3 px-4 text-gray-700">
-                              {new Date(income.date).toLocaleDateString("id-ID", {
-                                day: "numeric",
-                                month: "long",
-                                year: "numeric",
-                              })}
+                              {new Date(income.date).toLocaleDateString(
+                                "id-ID",
+                                {
+                                  day: "numeric",
+                                  month: "long",
+                                  year: "numeric",
+                                }
+                              )}
                             </td>
                             <td className="py-3 px-4">
                               <span className="inline-flex items-center gap-2 px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">
@@ -629,4 +657,3 @@ export default function IncomeTracking() {
     </div>
   );
 }
-
