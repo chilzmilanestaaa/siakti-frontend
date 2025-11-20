@@ -1,4 +1,4 @@
-import Footer from "./components/footer";
+import Footer from "./components/Footer";
 import logo from "./assets/siakti-logo.png";
 import { useNavigate } from "react-router-dom";
 import imageHero2 from "./assets/titi.png";

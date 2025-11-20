@@ -1,7 +1,7 @@
 import "./index.css";
 import { useNavigate } from "react-router-dom";
 import imageHero2 from "./assets/titi.png";
-import Footer from "./components/footer";
+import Footer from "./components/Footer";
 
 const LandingPage = () => {
   const navigate = useNavigate();
